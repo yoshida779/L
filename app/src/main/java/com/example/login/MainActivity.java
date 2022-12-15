@@ -2,7 +2,6 @@ package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText password;
     private Button button;
+    private Button buttonForgot;
     private Db helper;
 
 
@@ -30,9 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Viewの取得
         password = findViewById(R.id.password);
         button = findViewById(R.id.button);
+        buttonForgot = findViewById(R.id.buttonForgot);
 
         // ボタンにクリックリスナーをセット
         button.setOnClickListener(this);
+        buttonForgot.setOnClickListener(this);
 
         // スクショを無効化
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
@@ -50,7 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 送信ボタン押下
     @Override
     public void onClick(View view) {
-        {
+        switch (view.getId()) {
+
+            // パスワード入力
+            case R.id.button:
             // 入力欄が空白かチェック
             if (password.length() != 0) {
                 // ログイン処理
@@ -81,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // 入力データ取得
                 String pswd = password.getText().toString();
 
-               // 照合
+                // 照合
                 Log.d("debug", "判定処理:" + dswd + "," + pswd);
                 if (pswd.equals(dswd)) {
 
@@ -98,15 +103,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     numError += 1;
                     Log.d("debug", "失敗" + numError);
 
-                    // 5回失敗で１５秒待機
-                    if (numError>5) {
-                        Intent intent = new Intent(getApplication(), StopActivity.class);
+                    // 5回失敗で画像認証に遷移
+                    if (numError > 5) {
+                        Intent intent = new Intent(getApplication(), ImageActivity.class);
                         startActivity(intent);
                     }
                 }
             } else {
                 password.setError("入力してください");
             }
+            break;
+
+            // パスワードを忘れた
+            case R.id.buttonForgot:
+                // ForgotActivityに遷移
+                Intent intent = new Intent(getApplication(), ForgotActivity.class);
+                startActivity(intent);
+            break;
         }
     }
 

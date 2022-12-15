@@ -1,17 +1,26 @@
 <resources>
     // MainActivity
-    <string name="app_name">ログイン</string>
+    <string name="app_name">カレンダーアプリ</string>
     <string name="pwd_title">パスワード</string>
     <string name="pwd_enter">パスワードを入力してください</string>
     <string name="pwd_send">送信</string>
-
+    <string name="pwd_forgot">パスワードを忘れた</string>
 
     // ImageActivity
-    <string name="img_title">画像を並べてください</string>
+    <string name="img_title">画像を5つ選択してください</string>
     <string name="img_send">送信</string>
-
+    <string name="img_count">0</string>
+    <string name="img_count_msg">個目がセットされました</string>
+    <string name="img_reset">リセット</string>
 
     // StopActivity
     <string name="stop">15秒お待ちください</string>
+
+    // ForgetActivity
+    <string name="fgt_title">パスワードの設定・再設定</string>
+    <string name="fgt_current">現在のパスワード</string>
+    <string name="fgt_new">新しいパスワード</string>
+    <string name="fgt_re">新しいパスワードを再入力</string>
+    <string name="fgt_change">変更する</string>
 
 </resources>
