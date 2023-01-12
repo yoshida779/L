@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText password;
     private Button button;
-    private Button buttonForgot;
     private Db helper;
 
 
@@ -30,11 +29,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Viewの取得
         password = findViewById(R.id.password);
         button = findViewById(R.id.button);
-        buttonForgot = findViewById(R.id.buttonForgot);
 
         // ボタンにクリックリスナーをセット
         button.setOnClickListener(this);
-        buttonForgot.setOnClickListener(this);
 
         // スクショを無効化
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
@@ -44,6 +41,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         password.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         // データベース
         helper = new Db(getApplicationContext());
+
+        // 新規チェック
+        // パスワード(パスワードがない＝画像も登録してない)
+        SQLiteDatabase readPswd = helper.getReadableDatabase();
+        Cursor cursorP = readPswd.query(
+                "pswddb",
+                new String[]{"password"},
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        cursorP.getCount();
+        if (cursorP.getCount() == 0) {
+            Intent intent = new Intent(getApplication(), FirstActivity.class);
+            startActivity(intent);
+        }
     }
 
     // エラー回数
@@ -92,8 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     Log.d("debug", "成功:" + dswd + "," + pswd);
 
-                    // 画像認証に遷移
-                    Intent intent = new Intent(getApplication(), ImageActivity.class);
+                    // 成功
+                    Intent intent = new Intent(getApplication(), StopActivity.class);
+                    // 本番環境では "ホーム画面" に遷移
                     startActivity(intent);
 
                 } else {
@@ -112,14 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 password.setError("入力してください");
             }
-            break;
-
-            // パスワードを忘れた
-            case R.id.buttonForgot:
-                // ForgotActivityに遷移
-                Intent intent = new Intent(getApplication(), ForgotActivity.class);
-                startActivity(intent);
-            break;
         }
     }
 

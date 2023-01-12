@@ -36,7 +36,7 @@ public class Db extends SQLiteOpenHelper {
                 SQL_CREATE_ENTRIES
         );
 
-        saveData(db, Integer.parseInt(("12345")));
+        // saveData(db, Integer.parseInt(("12345")));
 
     }
 
@@ -54,9 +54,9 @@ public class Db extends SQLiteOpenHelper {
 
     public void saveData(SQLiteDatabase db, int password){
         ContentValues values = new ContentValues();
-        values.put("password", password);
+        // values.put("password", password);
 
-        db.insert("pswddb", null, values);
+        // db.insert("pswddb", null, values);
 
 
 

@@ -230,7 +230,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                         bnumError += 1;
                         Log.d("debug", "失敗" + bnumError);
 
-                        // 5回失敗で画像認証に遷移
+                        // 5回失敗で待機画面に遷移
                         if (bnumError > 5) {
                             Intent intent = new Intent(getApplication(), StopActivity.class);
                             startActivity(intent);
