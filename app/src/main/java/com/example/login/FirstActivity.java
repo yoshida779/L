@@ -48,11 +48,15 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.firstButton) {
             // 入力欄が空白かチェック
             if (firstPassword.length() != 0) {
-                // パスワード登録
-                // DBにパスワードを登録
-                saveData();
-                Intent intent = new Intent(getApplication(), SecondActivity.class);
-                startActivity(intent);
+                if (firstPassword.length() == 5) {
+                    // パスワード登録
+                    // DBにパスワードを登録
+                    saveData();
+                    Intent intent = new Intent(getApplication(), SecondActivity.class);
+                    startActivity(intent);
+                } else {
+                    firstPassword.setError("5文字入力してください");
+                }
             } else {
                 firstPassword.setError("入力してください");
             }
